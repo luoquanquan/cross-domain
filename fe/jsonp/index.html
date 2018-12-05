@@ -9,6 +9,12 @@
 <body>
     <h3>jsonp 实现跨域</h3>
 
+    <script>
+        // 第一次因为还没有引入外部 js 所以打印 undefined
+        console.log(window.aaaa)
+        // 1 秒后, 外部 js 加载完成, 能打印出后端返回的变量定义
+        setTimeout(() => {console.log(window.aaaa)}, 1e3)
+    </script>
     <script src="http://localhost:8888/"></script>
 </body>
 </html>
