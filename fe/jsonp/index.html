@@ -10,11 +10,33 @@
     <h3>jsonp 实现跨域</h3>
 
     <script>
-        // 由于后端返回的内容即将调用函数 aaaa, 那我们就预先定义一个呗, 这东西就叫回调函数
-        function aaaa(param) {
-            console.log('后端返回的参数是: ', param)
+        function Jsonp(url) {
+            this.callbackName = 'jsonp-' + Date.now()
         }
+
+        Jsonp.prototype.doRequest = function() {
+            var self = this
+            var xhr = new XMLHttpRequest()
+            xhr.open('GET', 'http://localhost:8888/')
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    self.createScript(xhr.responseText)
+                }
+            }
+        }
+
+        Jsonp.prototype.createScript = function(responseText) {
+            var script = document.createElement('script')
+            script.innerHTML = responseText
+            document.body.appendChild(script)
+        }
+
+        Jsonp.prototype.createCallback = function() {
+            window[this.prefix] = function(data) {
+                console.log(data)
+            }
+        }
+        new Jsonp('http://localhost:8888/')
     </script>
-    <script src="http://localhost:8888/"></script>
 </body>
 </html>
