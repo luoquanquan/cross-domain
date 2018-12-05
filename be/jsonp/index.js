@@ -4,7 +4,7 @@ const PORT = 8888;
 
 // 创建一个 http 服务
 const server = http.createServer((request, response) => {
-  response.end("var aaaa = {name: 'quanquan', friend: 'guiling'}");
+  response.end("aaaa({name: 'quanquan', friend: 'guiling'})");
 });
 
 // 启动服务, 监听端口
