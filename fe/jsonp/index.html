@@ -10,33 +10,38 @@
     <h3>jsonp 实现跨域</h3>
 
     <script>
-        function Jsonp(url) {
-            this.callbackName = 'jsonp-' + Date.now()
+        function Jsonp(url, cb) {
+            this.callbackName = 'jsonp_' + Date.now()
+            this.cb = cb
+            this.url = url
+            this.init()
         }
 
-        Jsonp.prototype.doRequest = function() {
-            var self = this
-            var xhr = new XMLHttpRequest()
-            xhr.open('GET', 'http://localhost:8888/')
-            xhr.onreadystatechange = function() {
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    self.createScript(xhr.responseText)
-                }
+        Jsonp.prototype.init = function() {
+            if(~this.url.indexOf('?')) {
+                this.url = this.url + '&callback=' + this.callbackName
+            } else {
+                this.url = this.url + '?callback=' + this.callbackName
             }
+            this.createCallback()
+            this.createScript()
         }
 
-        Jsonp.prototype.createScript = function(responseText) {
+        Jsonp.prototype.createScript = function() {
             var script = document.createElement('script')
-            script.innerHTML = responseText
+            script.src = this.url
+            script.onload = function() {
+                this.remove()
+            }
             document.body.appendChild(script)
         }
 
         Jsonp.prototype.createCallback = function() {
-            window[this.prefix] = function(data) {
-                console.log(data)
-            }
+            window[this.callbackName] = this.cb
         }
-        new Jsonp('http://localhost:8888/')
+        new Jsonp('http://localhost:8888/', function(data) {
+            console.log(data)
+        })
     </script>
 </body>
 </html>

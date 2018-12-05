@@ -1,10 +1,12 @@
 const http = require('http');
+const url = require('url');
 
 const PORT = 8888;
 
 // 创建一个 http 服务
 const server = http.createServer((request, response) => {
-  response.end("aaaa({name: 'quanquan', friend: 'guiling'})");
+  const queryObj = url.parse(request.url, true).query;
+  response.end(`${queryObj.callback}({name: 'quanquan', friend: 'guiling'})`);
 });
 
 // 启动服务, 监听端口
