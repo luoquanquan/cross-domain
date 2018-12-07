@@ -6,6 +6,7 @@ const PORT = 8888;
 const server = http.createServer((request, response) => {
   response.setHeader('Access-Control-Allow-Origin', '*');
   response.setHeader('Access-Control-Allow-Methods', 'PUT');
+  response.setHeader('Access-Control-Allow-Headers', 'token');
   response.end("{name: 'quanquan', friend: 'guiling'}");
 });
 
