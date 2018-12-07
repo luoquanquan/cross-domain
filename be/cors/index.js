@@ -4,11 +4,6 @@ const PORT = 8888;
 
 // 创建一个 http 服务
 const server = http.createServer((request, response) => {
-//   response.writeHead
-  response.setHeader('Access-Control-Allow-Origin', '*');
-  response.setHeader('Access-Control-Allow-Methods', 'PUT');
-  response.setHeader('Access-Control-Allow-Headers', 'token');
-  response.setHeader('Access-Control-Max-Age', 5);
   response.end("{name: 'quanquan', friend: 'guiling'}");
 });
 

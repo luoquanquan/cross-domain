@@ -11,8 +11,7 @@
 
     <script>
         var xhr = new XMLHttpRequest()
-        xhr.open('PUT', 'http://localhost:8888')
-        xhr.setRequestHeader('token', 'quanquandequan')
+        xhr.open('GET', 'http://localhost:8888')
         xhr.onreadystatechange = function() {
             if(xhr.readyState === 4 && xhr.status === 200) {
                 console.log(xhr.responseText)
