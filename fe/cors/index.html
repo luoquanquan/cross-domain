@@ -13,6 +13,7 @@
         var xhr = new XMLHttpRequest()
         xhr.open('PUT', 'http://localhost:8888')
         xhr.setRequestHeader('token', 'quanquanbunengshuo')
+        xhr.withCredentials = true;
         xhr.onreadystatechange = function() {
             if(xhr.readyState === 4 && xhr.status === 200) {
                 console.log(xhr.responseText)
