@@ -14,6 +14,7 @@ const server = http.createServer((request, response) => {
   response.setHeader('Access-Control-Allow-Methods', 'PUT');
   response.setHeader('Access-Control-Allow-Credentials', true);
   response.setHeader('Access-Control-Allow-Headers', 'token');
+  response.setHeader('token', 'quanquan');
   if (method === 'OPTIONS') {
     console.log('预检请求');
   } else if (!cookie) {
