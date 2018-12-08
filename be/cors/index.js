@@ -13,7 +13,6 @@ const server = http.createServer((request, response) => {
   }
   response.setHeader('Access-Control-Allow-Methods', 'PUT');
   response.setHeader('Access-Control-Allow-Headers', 'token');
-  response.setHeader('Access-Control-Max-Age', 5);
   response.end("{name: 'quanquan', friend: 'guiling'}");
 });
 
