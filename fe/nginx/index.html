@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NGINX 反向代理实现跨域</title>
+</head>
+<body>
+    <h3>NGINX 反向代理实现跨域</h3>
+
+    <script>
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', '/api/getFriend')
+        xhr.setRequestHeader('token', 'quanquanbunengshuo')
+        xhr.withCredentials = true;
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText)
+                console.log(xhr.getAllResponseHeaders())
+            }
+        }
+        xhr.send()
+    </script>
+</body>
+</html>
