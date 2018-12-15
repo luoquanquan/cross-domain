@@ -5,6 +5,7 @@ const PORT = 8888;
 // 创建一个 http 服务
 const server = http.createServer((request, response) => {
   console.log(request.headers);
+  console.log(request.connection.remoteAddress);
   response.end("{name: 'quanquan', friend: 'guiling'}");
 });
 
