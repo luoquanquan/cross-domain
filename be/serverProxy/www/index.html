@@ -8,5 +8,16 @@
 </head>
 <body>
     ServerProxy 实现跨域
+
+    <script>
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', '/api/getFriend')
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                console.log('接口返回的数据为: ', xhr.responseText)
+            }
+        }
+        xhr.send()
+    </script>
 </body>
 </html>
