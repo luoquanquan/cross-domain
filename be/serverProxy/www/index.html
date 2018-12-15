@@ -7,17 +7,52 @@
     <title>ServerProxy 实现跨域</title>
 </head>
 <body>
-    ServerProxy 实现跨域
+    <h3>ServerProxy 实现跨域</h3>
 
+    a: <input type="text" id="a" value="1">
+    b: <input type="text" id="b" value="2">
+    <button id="add">计算加法</button>
+    <button id="subtrnct">计算减法</button>
+
+    <div>计算结果为: <span id="ret"></span></div>
     <script>
-        var xhr = new XMLHttpRequest()
-        xhr.open('GET', 'http://localhost:1111/?a=1&b=2')
-        xhr.onreadystatechange = function() {
-            if(xhr.readyState === 4 && xhr.status === 200) {
-                console.log('接口返回的数据为: ', xhr.responseText)
+        var aDom = document.getElementById('a')
+        var bDom = document.getElementById('b')
+        var addBtn = document.getElementById('add')
+        var subtrnctDom = document.getElementById('subtrnct')
+        var retDom = document.getElementById('ret')
+
+        function add() {
+            // 如果参数为空直接返回
+            if(!a.value.trim() || !b.value.trim()) return
+            var xhr = new XMLHttpRequest()
+            // 如果计算加法直接调用调用服务为加法服务
+            xhr.open('GET', '/api/proxy' + '?server=' + encodeURIComponent('http://localhost:1111/?a='+ a.value +'&b=' + b.value))
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('接口返回的数据为: ', xhr.responseText)
+                    // 将计算结果显示到页面中的结果显示中
+                    retDom.innerHTML = JSON.parse(xhr.responseText).result
+                }
             }
+            xhr.send()
         }
-        xhr.send()
+
+        function subtrnct() {
+            if(!a.value.trim() || !b.value.trim()) return
+            var xhr = new XMLHttpRequest()
+            xhr.open('GET', '/api/proxy' + '?server=' + encodeURIComponent('http://localhost:2222/?a='+ a.value +'&b=' + b.value))
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    console.log('接口返回的数据为: ', xhr.responseText)
+                    retDom.innerHTML = JSON.parse(xhr.responseText).result
+                }
+            }
+            xhr.send()
+        }
+
+        addBtn.addEventListener('click', add)
+        subtrnctDom.addEventListener('click', subtrnct)
     </script>
 </body>
 </html>
